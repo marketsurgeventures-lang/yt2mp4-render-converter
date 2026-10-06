@@ -2,7 +2,7 @@
 
 An independent WordPress converter with its own yt-dlp and FFmpeg engine. Visitors paste a YouTube URL, inspect available qualities, choose MP4 or MP3, convert, and download. No third-party conversion API is used. The implementation does not contain a competitor's private source code or backend.
 
-**Package status:** source prepared and 83 local checks passed on 3 October 2026. No GitHub repository, Render service or live WordPress installation has been created from this package yet. Docker builds and live source access still need deployment verification.
+**Deployment status — 6 October 2026:** the private GitHub repository has been created and the WordPress plugin is installed and active on yt2mp4.live. Render deployment, backend configuration and live conversion verification are still pending. The original package passed 83 local checks on 3 October 2026; these do not establish cloud compatibility.
 
 Start with **START-HERE-ROMAN-URDU.md** or **RENDER-SETUP.md**. The included `render.yaml` explicitly selects a single Free Docker web service and initially leaves conversions disabled until the real WordPress origin and shared secret are configured.
 
@@ -13,9 +13,9 @@ Start with **START-HERE-ROMAN-URDU.md** or **RENDER-SETUP.md**. The included `re
 | `Dockerfile`, `render.yaml` | Build and service configuration for Render |
 | `backend/` | Queue, one conversion daemon, request authentication and private downloads |
 | `deploy/` | Runtime configuration and nginx/PHP-FPM/worker supervisor |
-| `wordpress/render-video-converter.zip` | Installable WordPress plugin |
-| `wordpress/render-video-converter/` | Plugin source |
-| `VALIDATION.md`, `tests/` | Test results, scope and reproduction instructions |
+| `render-wordpress-plugin.zip` | Installable WordPress plugin |
+| `render-video-converter-package.zip` | Complete original source package, including WordPress source and the full local test suite |
+| `VALIDATION.md` | Local test results and reproduction instructions; extract the full package to run its tests |
 
 The default pilot accepts 20 conversion requests and 40 analyses per UTC day, videos up to two minutes, available MP4 source qualities up to 360p, and final files up to 20 MiB. MP3 choices are 128, 192 and 320 kbps; a higher output bitrate does not improve the original source's fidelity. One request runs at a time, with up to six active or queued requests in total.
 
