@@ -101,6 +101,13 @@ final class Engine {
         if ($result['code'] !== 0) {
             $log = $this->store->dir($this->job['id']) . '/error.log';
             file_put_contents($log, substr($result['stderr'], -16384)); @chmod($log, 0600);
+            // Keep provider details in the owner's logs, with URLs and control bytes removed.
+            $detail = preg_replace('/https?:\/\/\S+/i', '[url]', $result['stderr']);
+            $detail = preg_replace('/[\x00-\x1f\x7f]+/', ' ', (string)$detail);
+            error_log('MSVCR subprocess failed: tool=' . basename($argv[0]) . ' exit=' . $result['code'] . ' detail=' . substr((string)$detail, -1200));
+            if (preg_match('/sign in to confirm.*not a bot|confirm you.?re not a bot|automated (?:requests|traffic)/i', $result['stderr'])) {
+                throw new \RuntimeException('YouTube is requiring verification from this conversion server. The source is currently unavailable.');
+            }
             throw new \RuntimeException('The source could not be processed. Try an available public video you have permission to download.');
         }
         return $result;
