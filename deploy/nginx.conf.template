@@ -1,0 +1,28 @@
+worker_processes 1;
+pid /tmp/nginx/nginx.pid;
+error_log /dev/stderr warn;
+events { worker_connections 128; }
+http {
+    access_log off;
+    client_body_temp_path /tmp/nginx/client_body;
+    proxy_temp_path /tmp/nginx/proxy;
+    fastcgi_temp_path /tmp/nginx/fastcgi;
+    scgi_temp_path /tmp/nginx/scgi;
+    uwsgi_temp_path /tmp/nginx/uwsgi;
+    limit_req_zone $binary_remote_addr zone=converter:1m rate=6r/s;
+    limit_req_status 429;
+    server {
+        listen 0.0.0.0:__PORT__;
+        server_name _;
+        client_max_body_size 8k;
+        location / {
+            limit_req zone=converter burst=20 nodelay;
+            include /etc/nginx/fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME /app/backend/public/index.php;
+            fastcgi_param HTTP_AUTHORIZATION $http_authorization;
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_read_timeout 180s;
+            fastcgi_buffering off;
+        }
+    }
+}
