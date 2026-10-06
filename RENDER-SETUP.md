@@ -1,3 +1,5 @@
+> Current deployment status (6 October 2026): the existing Free backend and WordPress integration are configured, but live YouTube source extraction is blocked by verification. Public conversion remains disabled. See DEPLOYMENT-STATUS.md before following new-installation steps; do not create a duplicate service or reset the existing shared secret.
+
 # Deploy the pilot on Render
 
 This guide uses one Free Docker web service. The WordPress site stays on Hostinger. The package has not yet been built or deployed on Render.

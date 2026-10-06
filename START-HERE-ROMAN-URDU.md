@@ -1,3 +1,5 @@
+> Current deployment status (6 October 2026): the existing Free backend and WordPress integration are configured, but live YouTube source extraction is blocked by verification. Public conversion remains disabled. See DEPLOYMENT-STATUS.md before following new-installation steps; do not create a duplicate service or reset the existing shared secret.
+
 # Pehle yeh parhein
 
 Code aur WordPress plugin tayyar hain. **83 local checks pass hain; abhi Render par live deployment nahi hui.** Asal YouTube access aur aapki WordPress website par final test deployment ke baad hoga.
