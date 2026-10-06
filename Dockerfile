@@ -16,7 +16,8 @@ WORKDIR /app
 COPY backend /app/backend
 COPY deploy /app/deploy
 COPY deploy/php.ini /usr/local/etc/php/conf.d/99-converter.ini
-RUN rm -f /usr/local/etc/php-fpm.d/*.conf
+RUN rm -f /usr/local/etc/php-fpm.d/*.conf \
+    && for source in /app/backend/*.php /app/backend/includes/*.php /app/backend/public/*.php /app/deploy/*.php; do php -l "$source" || exit 1; done
 COPY deploy/fpm.conf /usr/local/etc/php-fpm.d/converter.conf
 ENV MSVCR_CONFIG=/var/lib/msvcr-config/config.json \
     MSVCR_ENABLED=0 PORT=10000 NODE_OPTIONS=--max-old-space-size=96
