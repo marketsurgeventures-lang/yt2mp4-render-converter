@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: youtube-converter-pilot
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    envVars:
+      - key: MSVCR_ENABLED
+        value: "0"
+      - key: MSVCR_DAILY
+        value: "20"
+      - key: MSVCR_MAX_MINUTES
+        value: "2"
+      - key: MSVCR_MAX_HEIGHT
+        value: "360"
+      - key: MSVCR_MAX_MB
+        value: "20"

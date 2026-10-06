@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+*.log
+*.pem
+*.key
+config.json
+shared-secret.txt
+__pycache__/
+node_modules/

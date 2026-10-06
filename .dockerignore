@@ -1,0 +1,13 @@
+.git
+.env
+.env.*
+!.env.example
+wordpress
+tests
+*.zip
+*.log
+*.pem
+*.key
+config.json
+shared-secret.txt
+__pycache__
